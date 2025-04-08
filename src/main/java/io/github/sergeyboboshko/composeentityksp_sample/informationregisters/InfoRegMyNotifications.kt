@@ -13,7 +13,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
 
 @Entity(tableName = "info_reg_my_notifications")
-@MigrationEntityCE(migrationVersion = 5)
+//@MigrationEntityCE(migrationVersion = 5)
 @ObjectGeneratorCE(type = GeneratorType.InformationRegister,label="Notifications")
 data class InfoRegMyNotifications(
     @PrimaryKey(autoGenerate = true) override var id: Long,

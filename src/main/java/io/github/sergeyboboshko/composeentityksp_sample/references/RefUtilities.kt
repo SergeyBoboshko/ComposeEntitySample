@@ -23,7 +23,7 @@ import kotlinx.android.parcel.Parcelize
 @ObjectGeneratorCE(type = GeneratorType.Reference, beforeDelete = "beforeDeleteUtility")
 @Parcelize
 @Entity(tableName = "ref_utilities")
-@MigrationEntityCE(2)
+//@MigrationEntityCE(2)
 data class RefUtilitiesEntity (
     @PrimaryKey(autoGenerate = true)
     override var id:Long,

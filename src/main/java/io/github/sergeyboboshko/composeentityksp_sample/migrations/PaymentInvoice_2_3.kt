@@ -4,7 +4,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseMigration
 
-@DatabaseMigration(version = 3)
+//@DatabaseMigration(version = 3)
 object PaymentInvoice_2_3 : Migration(2, 3) {
     override fun migrate(database: SupportSQLiteDatabase) {
         // Створення нової таблиці для сутності DocPaymentsinvoiceEntity
@@ -21,7 +21,7 @@ object PaymentInvoice_2_3 : Migration(2, 3) {
     }
 }
 
-@DatabaseMigration(version = 6)
+//@DatabaseMigration(version = 6)
 object PaymentInvoice_5_6: Migration(5, 6) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE doc_payments_invoice ADD COLUMN addressId INTEGER NOT NULL DEFAULT 0")

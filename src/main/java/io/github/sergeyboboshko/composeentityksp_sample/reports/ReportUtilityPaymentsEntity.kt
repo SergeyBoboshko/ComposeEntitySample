@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.reports.base.ReportEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.CeAutomationMigration
 import io.github.sergeyboboshko.composeentity_ksp.base.CeFormField
 import io.github.sergeyboboshko.composeentity_ksp.base.CeObjectGenerator
 import io.github.sergeyboboshko.composeentity_ksp.base.CeReport
@@ -41,7 +40,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
         transactionType,
         addressId,
         zoneId""")
-@MigrationEntityCE (9)
+//@MigrationEntityCE (9)
 data class ReportUtilityPaymentsEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     override var name:String = "Default Settings",

@@ -54,7 +54,7 @@ import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 
 //******************** Entity --------------------------
 @ObjectGeneratorCE(type = GeneratorType.Reference, generationLevel = GenerationLevel.UI)
-@MigrationEntityCE (8)
+//@MigrationEntityCE (8)
 @Parcelize
 @Entity(tableName = "ref_meter_zones")
 data class RefMeterZonesEntity(

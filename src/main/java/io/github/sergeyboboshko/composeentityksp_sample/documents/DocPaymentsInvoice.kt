@@ -5,23 +5,24 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.DocumentDescriberCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
 import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.composeentityksp_sample.accumulationregisters.AccumRegMyPayments
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.DocTypes
+import io.github.sergeyboboshko.composeentityksp_sample.details.DetailsUtilityCharge
 import io.github.sergeyboboshko.composeentityksp_sample.informationregisters.InfoRegMyNotifications
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 
 import kotlinx.parcelize.Parcelize
 //Outstanding Invoice document
 //******************** Entity --------------------------
-@ObjectGeneratorCE(type = GeneratorType.Document, label = "Utility Bill")
+@ObjectGeneratorCE(type = GeneratorType.Document, label = "Utility Bill", hasDetails = true, detailsEntityClass = DetailsUtilityCharge::class)
 @Parcelize
 @Entity(tableName = "doc_payments_invoice")
-@DocumentDescriberCE(
-    infoRegisters=[InfoRegMyNotifications::class],
+@CeDocumentDescriber(
+    //infoRegisters=[InfoRegMyNotifications::class],
     accumulationRegistersExpense = [AccumRegMyPayments::class],
     documentType = DocTypes.paymentsInvoice
 )
