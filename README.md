@@ -74,6 +74,11 @@ data class RefMeterZones(
 }
 ```
 
+And result of this code example on pictures. The fields id and name are presenting on the form by standart way for all of references:
+
+![CE_Example 1](https://github.com/user-attachments/assets/eb172b19-72ce-452e-8364-7761901f6f3e)
+![CE_Example 2](https://github.com/user-attachments/assets/dff0d617-fab7-409c-88e1-cd403f362900)
+
 ### 5️⃣ Run the Project 🚀
 Your UI and database are automatically generated, and you can start using the app immediately.
 
