@@ -30,4 +30,6 @@
     <string name="meter_placeholder">Select meter</string>
     <string name="meter_reading_label">Meter Reading</string>
     <string name="meter_reading_placeholder">Input meter reading</string>
+    <string name="open_pdf">Open PDF</string>
+    <string name="show_in_here">Show here</string>
 </resources>

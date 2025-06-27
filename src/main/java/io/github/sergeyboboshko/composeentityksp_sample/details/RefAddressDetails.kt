@@ -21,6 +21,7 @@ import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
 import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
+import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
 
 import kotlinx.android.parcel.Parcelize
@@ -39,7 +40,7 @@ import kotlinx.android.parcel.Parcelize
         )
     ]
 )
-//@CeAutoMigration(from = 12, to = 13)
+//@MigrationEntityCE(2)
 data class RefAddressDetailsEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     @FormFieldCE(
@@ -59,13 +60,15 @@ data class RefAddressDetailsEntity(
         placeHolder = "@@utility_placeholder"
     )
     var utilityId: Long,
-   // @FormFieldCE(
-    //    label = "meterReading",
-    //    placeHolder = "Input meter Reading",
-    //    type = FieldTypeHelper.DECIMAL
-   // )
-    //@ColumnInfo(defaultValue = "0")
-    //var meterReading: Double
+    @ColumnInfo(defaultValue = "0")
+    @FormFieldCE(
+        related = true,
+        type = FieldTypeHelper.SELECT,
+        relatedEntityClass = RefMeters::class,
+        label = "@@meter_label",
+        placeHolder = "@@meter_placeholder"
+    )
+    var meterId: Long
 ) : CommonDetailsEntity(id, parentId = parentId), Parcelable
 
 object RefAddressDetailsEntityHelper {

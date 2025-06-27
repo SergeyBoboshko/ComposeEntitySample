@@ -36,6 +36,7 @@ import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationM
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 import io.github.sergeyboboshko.composeentityksp_sample.accumulationregisters.AccumRegMyPaymentsUI
 import io.github.sergeyboboshko.composeentityksp_sample.details.RefAddressDetailsEntityUI
+import io.github.sergeyboboshko.composeentityksp_sample.documents.DocActualPaymentsEntityUI
 import io.github.sergeyboboshko.composeentityksp_sample.documents.DocPaymentsinvoiceEntityUI
 import io.github.sergeyboboshko.composeentityksp_sample.informationregisters.InfoRegMyNotificationsUI
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntityUI
@@ -97,6 +98,14 @@ fun MainPage(form: String) {
             "Invoice",
             null
         )
+        ClassicButtons.NavigationButton(
+            SelfNav.getMainScreen(),
+            DocActualPaymentsEntityUI() as BaseUI,
+            "Payment",
+            null
+        )
+
+        //----------------
         ClassicButtons.IconNavigationButton(
             commonText = "Notifications", subText = "", icon = Icons.Default.Info,
             iconSize = 24.dp, routePath = SelfNav.getMainScreen(),
@@ -145,5 +154,6 @@ fun MainPage(form: String) {
             ui = RefMetersUI() as BaseUI,
             subText = ""
         )
+        PoweredByCEComposable()
     }
 }

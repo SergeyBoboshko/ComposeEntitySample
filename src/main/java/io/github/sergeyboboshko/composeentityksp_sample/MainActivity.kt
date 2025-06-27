@@ -36,7 +36,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.ui.theme.ComposeEntityTh
 import kotlin.getValue
 
 
-@DatabaseVersion(version = 1)
+@DatabaseVersion(version = 4)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
