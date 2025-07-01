@@ -17,7 +17,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesE
 
 @Entity(tableName = "accum_reg_my_payments")
 //@MigrationEntityCE(migrationVersion = 7)
-@ObjectGeneratorCE(type = GeneratorType.AccumulationRegister, label = "Utility Payments")
+@ObjectGeneratorCE(type = GeneratorType.AccumulationRegister, label = "Utility Payments", resources = "amount, meterR MAX")
 data class AccumRegMyPayments(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     @FormFieldCE(

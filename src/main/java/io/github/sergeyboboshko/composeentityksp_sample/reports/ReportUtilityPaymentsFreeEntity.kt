@@ -33,15 +33,15 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 @CeReport(resultEntity = FreeReportUtilityPaymentsEntityResult::class,
     query = """SELECT
         name,
-        zoneId,
-        SUM(CASE WHEN transactionType='EXPENSE' THEN -amount ELSE amount END) AS amount
+        zoneId,utilityId,
+        (amount) AS amount
         FROM accum_reg_my_payments
         LEFT JOIN ref_adresses
         ON accum_reg_my_payments.addressId = ref_adresses.id
     """,
     groups = """ 
         addressId,
-        zoneId""")
+        zoneId,utilityId,amount""")
 //@MigrationEntityCE (10)
 data class ReportUtilityPaymentsFreeEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
