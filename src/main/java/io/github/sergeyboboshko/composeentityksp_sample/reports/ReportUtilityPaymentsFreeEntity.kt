@@ -31,17 +31,22 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 @Entity(tableName = "rep_utilitypayments_free_settings")
 @ObjectGeneratorCE(type = GeneratorType.ReportCursor,label="Free Grouping Balance/Overpayment", generationLevel = GenerationLevel.VIEW_MODEL, hasDetails = true, detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
 @CeReport(resultEntity = FreeReportUtilityPaymentsEntityResult::class,
-    query = """SELECT
+    query = """SELECT tab.name as Address, ref_utilities.name  Utility, SUM (amount) as amount FROM ( SELECT
         name,
         zoneId,utilityId,
-        (amount) AS amount
+        SUM (amount) AS amount
         FROM accum_reg_my_payments
         LEFT JOIN ref_adresses
         ON accum_reg_my_payments.addressId = ref_adresses.id
+        
+        GROUP BY name,
+        zoneId,utilityId) as tab 
+        LEFT JOIN ref_utilities
+        ON tab.utilityId = ref_utilities.id
     """,
     groups = """ 
-        addressId,
-        zoneId,utilityId,amount""")
+        tab.name,
+        utilityId""")
 //@MigrationEntityCE (10)
 data class ReportUtilityPaymentsFreeEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,

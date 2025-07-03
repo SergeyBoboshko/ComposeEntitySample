@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -30,6 +31,7 @@ import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
+import io.github.sergeyboboshko.composeentityksp_sample.daemons.initialLocales
 import io.github.sergeyboboshko.composeentityksp_sample.screens.MainPage
 import io.github.sergeyboboshko.composeentityksp_sample.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.composeentityksp_sample.ui.theme.ComposeEntityTheme
@@ -51,6 +53,8 @@ class MainActivity : ComponentActivity() {
             InitComposableEntityVariables()//має сенс тільки до GlobalContext.init(this)
             GlobalContext.init(this)
             InitComposeEntityColors()//має сенс тільки після GlobalContext.init(this)
+            LaunchedEffect(Unit) {initialLocales() }
+
             //*****************************************************************
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController
