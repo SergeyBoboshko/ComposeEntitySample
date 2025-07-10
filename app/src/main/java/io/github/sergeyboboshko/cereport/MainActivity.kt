@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable (route="settings"){
-                                SettingsScreen()
+                                //SettingsScreen(Generated.databaseVersion, io. github. sergeyboboshko. composeentity_ksp.db.DependenciesProvider as DatabaseFunctions)
                             }
                         }
                     }
