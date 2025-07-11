@@ -34,6 +34,8 @@ import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
 import io.github.sergeyboboshko.cereport.screens.MainPage
 import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
+import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
+import io.github.sergeyboboshko.composeentity_ksp.base.Generated
 import kotlin.getValue
 
 
@@ -85,7 +87,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable (route="settings"){
-                                SettingsScreen()
+                                //SettingsScreen(Generated.databaseVersion, io. github. sergeyboboshko. composeentity_ksp.db.DependenciesProvider as DatabaseFunctions)
                             }
                         }
                     }

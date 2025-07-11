@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.ButtonDisplayMode
-import io.github.sergeyboboshko.composeentity.daemons.ClassicButtons
+//import io.github.sergeyboboshko.composeentity.daemons.ClassicButtons
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext.darkMode
