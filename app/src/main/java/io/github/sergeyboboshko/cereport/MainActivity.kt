@@ -11,32 +11,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import io.github.sergeyboboshko.composeentity.daemons.DropdownMenuStyles
+import io.github.sergeyboboshko.cereport.screens.MainPage
+import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
+import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
-import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.InitComposableEntityVariables
 import io.github.sergeyboboshko.composeentity.daemons.InitComposeEntityColors
 import io.github.sergeyboboshko.composeentity.daemons.MainViewModel
 import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
-import io.github.sergeyboboshko.composeentity.daemons.SettingsScreen
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
-import io.github.sergeyboboshko.cereport.screens.MainPage
-import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
-import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
-import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
-import io.github.sergeyboboshko.composeentity_ksp.base.Generated
-import kotlin.getValue
 
 
 @DatabaseVersion(version = 1)

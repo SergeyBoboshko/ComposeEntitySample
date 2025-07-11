@@ -2,9 +2,6 @@ package io.github.sergeyboboshko.cereport
 
 import android.app.Application
 import android.content.Context
-import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
-import io.github.sergeyboboshko.composeentity.daemons.LocaleHelper
-import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 
 class MyApplication1 : Application() {
     // Можна додати додаткову логіку тут, якщо потрібно

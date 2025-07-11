@@ -1,6 +1,6 @@
 package io.github.sergeyboboshko.cereport.screens
 
-import android.widget.Toast
+//import androidx.compose.runtime.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -11,16 +11,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-//import androidx.compose.runtime.R
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import io.github.sergeyboboshko.composeentity.daemons.*
+import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
+import io.github.sergeyboboshko.composeentity.daemons.NavigationTargets
+import io.github.sergeyboboshko.composeentity.daemons.SimpleAlertDialog
 import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
+import io.github.sergeyboboshko.composeentity.daemons.mainCustomStack
+import io.github.sergeyboboshko.composeentity.daemons.popBackStack
 
 
 @OptIn(ExperimentalMaterial3Api::class)
