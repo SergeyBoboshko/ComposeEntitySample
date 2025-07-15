@@ -48,13 +48,13 @@ import io.github.sergeyboboshko.composeentity.references.base.TopReferenceViewMo
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 
 //******************** Entity --------------------------
-@ObjectGeneratorCE(type = GeneratorType.Reference, generationLevel = GenerationLevel.UI, label = "Meter Zones")
-//@MigrationEntityCE (8)
+@CeGenerator(type = GeneratorType.Reference, generationLevel = GenerationLevel.UI, label = "Meter Zones")
+//@CeMigrationEntity (8)
 @Parcelize
 @Entity(tableName = "ref_meter_zones")
 data class RefMeterZonesEntity(

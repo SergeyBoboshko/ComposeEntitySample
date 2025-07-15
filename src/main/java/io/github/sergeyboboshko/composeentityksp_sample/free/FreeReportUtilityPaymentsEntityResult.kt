@@ -20,11 +20,11 @@ import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationM
 import io.github.sergeyboboshko.composeentity.daemons.openGeneratedPdfFromCursor
 import io.github.sergeyboboshko.composeentity_ksp.base.CeFree
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 import io.github.sergeyboboshko.composeentityksp_sample.R
 
-@ObjectGeneratorCE(
+@CeGenerator(
     type = GeneratorType.Free,
     label = "Payments Balance",
     generationLevel = GenerationLevel.UI

@@ -28,7 +28,7 @@ import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
 import io.github.sergeyboboshko.composeentity.daemons.SettingsScreen
 import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
-import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
+import io.github.sergeyboboshko.composeentity_ksp.base.CeDatabaseVersion
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.initialLocales
@@ -38,7 +38,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.ui.theme.ComposeEntityTh
 import kotlin.getValue
 
 
-@DatabaseVersion(version = 4)
+@CeDatabaseVersion(version = 4)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable (route="settings"){
-                                SettingsScreen(Generated.databaseVersion, DependenciesProvider as DatabaseFunctions)
+                                SettingsScreen(Generated.CeDatabaseVersion, DependenciesProvider as DatabaseFunctions)
                             }
 
                             composable(route="bluetoothtransfer") {

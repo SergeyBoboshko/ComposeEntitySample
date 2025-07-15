@@ -15,10 +15,10 @@ import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeAutoMigration
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
@@ -26,8 +26,8 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesE
 
 import kotlinx.android.parcel.Parcelize
 
-//@MigrationEntityCE(migrationVersion = 4)
-@ObjectGeneratorCE(type = GeneratorType.Details)
+//@CeMigrationEntity(migrationVersion = 4)
+@CeGenerator(type = GeneratorType.Details)
 @Parcelize
 @Entity(
     tableName = "ref_adress_details",
@@ -40,17 +40,17 @@ import kotlinx.android.parcel.Parcelize
         )
     ]
 )
-//@MigrationEntityCE(2)
+//@CeMigrationEntity(2)
 data class RefAddressDetailsEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
-    @FormFieldCE(
+    @CeField(
         related = true,
         type = FieldTypeHelper.TEXT,
         render = false,
         relatedEntityClass = RefAddressesEntity::class
     )
     override var parentId: Long,
-    @FormFieldCE(
+    @CeField(
         onChange = "RefAddressDetailsEntityHelper.onUtilityChange",
         onEndEditing = "RefAddressDetailsEntityHelper.onUtilityEndEditing",
         related = true,
@@ -61,7 +61,7 @@ data class RefAddressDetailsEntity(
     )
     var utilityId: Long,
     @ColumnInfo(defaultValue = "0")
-    @FormFieldCE(
+    @CeField(
         related = true,
         type = FieldTypeHelper.SELECT,
         relatedEntityClass = RefMeters::class,

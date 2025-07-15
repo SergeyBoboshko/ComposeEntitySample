@@ -6,55 +6,55 @@ import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.composeentity.accumulationregisters.base.CommonAccumRegisterEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.TransactionType
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeterZonesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
 
 @Entity(tableName = "accum_reg_my_payments")
-//@MigrationEntityCE(migrationVersion = 7)
-@ObjectGeneratorCE(type = GeneratorType.AccumulationRegister, label = "Utility Payments", resources = "amount, meterR MAX")
+//@CeMigrationEntity(migrationVersion = 7)
+@CeGenerator(type = GeneratorType.AccumulationRegister, label = "Utility Payments", resources = "amount, meterR MAX")
 data class AccumRegMyPayments(
     @PrimaryKey(autoGenerate = true) override var id: Long,
-    @FormFieldCE(
+    @CeField(
         label = "@@date_label",
         placeHolder = "@@date_placeholder",
         type = FieldTypeHelper.DATE_TIME
     )
     override var period: Long,
-    @FormFieldCE(
+    @CeField(
         render = true,
         label = "Registrator ID",
         placeHolder = "Registrator ID",
         type = FieldTypeHelper.NUMBER
     )
     override var registratorID: Long,
-    @FormFieldCE(
+    @CeField(
         render = true,
         label = "String ID",
         placeHolder = "String ID",
         type = FieldTypeHelper.NUMBER
     )
     override var stringID: Long,
-    @FormFieldCE(
+    @CeField(
         render = true,
         label = "Registrator type",
         placeHolder = "Registrator type",
         type = FieldTypeHelper.NUMBER
     )
     override var registratorType: Int,
-    @FormFieldCE(
+    @CeField(
         render = true,
         label = "Transaction type",
         placeHolder = "Transaction type",
         type = FieldTypeHelper.TEXT
     )
     override var transactionType: TransactionType,
-    @FormFieldCE(
+    @CeField(
         related = true,
         type = FieldTypeHelper.SELECT,
         relatedEntityClass = RefAddressesEntity::class,
@@ -62,7 +62,7 @@ data class AccumRegMyPayments(
         placeHolder = "@@address_placeholder"
     )
     var addressId: Long,
-    @FormFieldCE(
+    @CeField(
         related = true,
         relatedEntityClass = RefUtilitiesEntity::class,
         extName = "utility",
@@ -74,7 +74,7 @@ data class AccumRegMyPayments(
     )
     @ColumnInfo(defaultValue = "0")
     var meterId: Long,//NEW in 16
-    @FormFieldCE(
+    @CeField(
         related = true,
         relatedEntityClass = RefMeters::class,
         extName = "meter",
@@ -87,11 +87,11 @@ data class AccumRegMyPayments(
     @ColumnInfo(defaultValue = "0")
     var utilityId: Long,//NEW in 2
 
-    @FormFieldCE(render = true, label = "Zone", placeHolder = "Zone", type = FieldTypeHelper.SELECT,
+    @CeField(render = true, label = "Zone", placeHolder = "Zone", type = FieldTypeHelper.SELECT,
     related = true, relatedEntityClass = RefMeterZonesEntity::class)
     var zoneId: Long,
 
-    @FormFieldCE(
+    @CeField(
         render = true,
         label = "Amount",
         placeHolder = "Amount",
@@ -99,7 +99,7 @@ data class AccumRegMyPayments(
     )
     var amount: Double,
     @ColumnInfo(defaultValue = "0")
-    @FormFieldCE(
+    @CeField(
         label = "@@meter_reading_label",
         placeHolder = "@@meter_reading_placeholder",
         type = FieldTypeHelper.DECIMAL

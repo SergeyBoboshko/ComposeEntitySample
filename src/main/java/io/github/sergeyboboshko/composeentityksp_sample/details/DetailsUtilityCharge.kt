@@ -7,10 +7,10 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.documents.DocPaymentsinvoiceEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeterZonesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
@@ -18,7 +18,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesE
 import kotlinx.android.parcel.Parcelize
 import java.time.temporal.TemporalAmount
 
-@ObjectGeneratorCE(type = GeneratorType.Details, label = "The Details Charge")
+@CeGenerator(type = GeneratorType.Details, label = "The Details Charge")
 @Parcelize
 @Entity(tableName = "details_utility_charge",
     foreignKeys = [
@@ -29,36 +29,36 @@ import java.time.temporal.TemporalAmount
             onDelete = ForeignKey.CASCADE
         )
     ])
-//@MigrationEntityCE(migrationVersion = 16)
+//@CeMigrationEntity(migrationVersion = 16)
 class DetailsUtilityCharge(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var parentId: Long,
-    @FormFieldCE(related = true, relatedEntityClass = RefUtilitiesEntity::class, extName = "utility", type = FieldTypeHelper.SELECT
+    @CeField(related = true, relatedEntityClass = RefUtilitiesEntity::class, extName = "utility", type = FieldTypeHelper.SELECT
         , label = "@@utility_label", placeHolder = "@@utility_placeholder", positionOnForm = 1, useForOrder = true)
     var utilityId:Long,
-    @FormFieldCE(related = true, relatedEntityClass = RefMeters::class,
+    @CeField(related = true, relatedEntityClass = RefMeters::class,
         extName = "meter", type = FieldTypeHelper.SELECT
         , label = "@@meter_label", placeHolder = "@@meter_placeholder",
         positionOnForm = 1, useForOrder = true)
     var meterId:Long,
-    @FormFieldCE(related = true, relatedEntityClass = RefMeterZonesEntity::class,
+    @CeField(related = true, relatedEntityClass = RefMeterZonesEntity::class,
         extName = "zone", type = FieldTypeHelper.SELECT
         , label = "@@zone_label", placeHolder = "@@zone_placeholder",
         positionOnForm = 1, useForOrder = true)
     @ColumnInfo(defaultValue = "0")
     var zoneId:Long,
-    @FormFieldCE(label = "@@amount_label", placeHolder = "@@amount_placeholder",type= FieldTypeHelper.DECIMAL)
+    @CeField(label = "@@amount_label", placeHolder = "@@amount_placeholder",type= FieldTypeHelper.DECIMAL)
     var amount: Double,
-    @FormFieldCE(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT)
+    @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT)
     var describe:String,
 
     @ColumnInfo(defaultValue = "0")
-    @FormFieldCE(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",type= FieldTypeHelper.DECIMAL)
+    @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",type= FieldTypeHelper.DECIMAL)
     var meterR:Double
 
 //    @ColumnInfo(defaultValue = "0")
-//    @FormFieldCE(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",type= FieldTypeHelper.DECIMAL)
+//    @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",type= FieldTypeHelper.DECIMAL)
 //    var meterReading:Double
 ): CommonDetailsEntity(id,parentId), Parcelable {
 

@@ -13,25 +13,25 @@ import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons.WebPageViewer
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(type = GeneratorType.Reference, beforeDelete = "beforeDeleteUtility")
+@CeGenerator(type = GeneratorType.Reference, beforeDelete = "beforeDeleteUtility")
 @Parcelize
 @Entity(tableName = "ref_utilities")
-//@MigrationEntityCE(2)
+//@CeMigrationEntity(2)
 data class RefUtilitiesEntity (
     @PrimaryKey(autoGenerate = true)
     override var id:Long,
     override var date: Long,
-    @FormFieldCE(render=true, label = "@@name_label", placeHolder = "@@name_placeholder",type = FieldTypeHelper.TEXT, positionOnForm = 5)
+    @CeField(render=true, label = "@@name_label", placeHolder = "@@name_placeholder",type = FieldTypeHelper.TEXT, positionOnForm = 5)
     override var name: String,
     override var isMarkedForDeletion: Boolean,
-    @FormFieldCE(render=true, label = "@@describe_label", placeHolder = "@@describe_placeholder",type = FieldTypeHelper.TEXT, positionOnForm = 10)
+    @CeField(render=true, label = "@@describe_label", placeHolder = "@@describe_placeholder",type = FieldTypeHelper.TEXT, positionOnForm = 10)
     var describe : String
 
 ): CommonReferenceEntity(
@@ -39,7 +39,7 @@ data class RefUtilitiesEntity (
 ), Parcelable{
 
     @Ignore
-    @FormFieldCE(customComposable = "MyComposableTest", type = FieldTypeHelper.COMPOSABLE, positionOnForm = 15, renderInList=false, renderInAddEdit = false)
+    @CeField(customComposable = "MyComposableTest", type = FieldTypeHelper.COMPOSABLE, positionOnForm = 15, renderInList=false, renderInAddEdit = false)
     var customField:String = "{}"
 
     override fun toString(): String {

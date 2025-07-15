@@ -14,13 +14,11 @@ import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.emptyCursor
 import io.github.sergeyboboshko.composeentity.references.base.RefUI
 import io.github.sergeyboboshko.composeentity.reports.base.ReportEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.CeFormField
-import io.github.sergeyboboshko.composeentity_ksp.base.CeObjectGenerator
 import io.github.sergeyboboshko.composeentity_ksp.base.CeReport
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 import io.github.sergeyboboshko.composeentityksp_sample.R
 import io.github.sergeyboboshko.composeentityksp_sample.accumulationregisters.AccumRegMyPayments
@@ -29,7 +27,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 
 //створюємо єнтіті для зберігання налаштувань фильтра. Фільтр буде включати в себе адресу та розмір залишку
 @Entity(tableName = "rep_utilitypayments_free_settings")
-@ObjectGeneratorCE(type = GeneratorType.ReportCursor,label="Free Grouping Balance/Overpayment", generationLevel = GenerationLevel.VIEW_MODEL, hasDetails = true, detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
+@CeGenerator(type = GeneratorType.ReportCursor,label="Free Grouping Balance/Overpayment", generationLevel = GenerationLevel.VIEW_MODEL, hasDetails = true, detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
 @CeReport(resultEntity = FreeReportUtilityPaymentsEntityResult::class,
     query = """SELECT tab.name as Address, ref_utilities.name  Utility, SUM (amount) as amount FROM 
         (SELECT
@@ -48,16 +46,16 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
     groups = """ 
         tab.name,
         utilityId""")
-//@MigrationEntityCE (10)
+//@CeMigrationEntity (10)
 data class ReportUtilityPaymentsFreeEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     override var name:String = "Default Settings",
-    @FormFieldCE(type = FieldTypeHelper.TEXT,label="@@describe_label", placeHolder = "@@describe_placeholder")
+    @CeField(type = FieldTypeHelper.TEXT,label="@@describe_label", placeHolder = "@@describe_placeholder")
     override var describe:String = "Report Outstanding Balance/Overpayment",
-    @FormFieldCE(related = true,label="@@address_label", placeHolder = "@@address_placeholder", relatedEntityClass = RefAddressesEntity::class
+    @CeField(related = true,label="@@address_label", placeHolder = "@@address_placeholder", relatedEntityClass = RefAddressesEntity::class
         , type = FieldTypeHelper.SELECT, wrapInFilter = true)
     var addressId:Long,
-    @FormFieldCE(type = FieldTypeHelper.DECIMAL,label="@@amount_label", placeHolder = "@@amount_placeholder", wrapInFilter = true)
+    @CeField(type = FieldTypeHelper.DECIMAL,label="@@amount_label", placeHolder = "@@amount_placeholder", wrapInFilter = true)
     var amount:Double
 ): ReportEntity(id,"addressId","amount",name,describe)
 

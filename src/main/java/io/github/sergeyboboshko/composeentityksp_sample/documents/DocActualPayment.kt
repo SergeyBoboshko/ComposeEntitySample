@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -24,24 +23,21 @@ import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntit
 import io.github.sergeyboboshko.composeentity.documents.base.DocUI
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
 import io.github.sergeyboboshko.composeentityksp_sample.accumulationregisters.AccumRegMyPayments
 import io.github.sergeyboboshko.composeentityksp_sample.alerts.CleanAndRefillDialodue
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.DocTypes
 import io.github.sergeyboboshko.composeentityksp_sample.details.DetailsActualPayment
-import io.github.sergeyboboshko.composeentityksp_sample.details.DetailsUtilityCharge
-import io.github.sergeyboboshko.composeentityksp_sample.informationregisters.InfoRegMyNotifications
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 import kotlinx.coroutines.launch
 
 import kotlinx.parcelize.Parcelize
 //Outstanding Invoice document
 //******************** Entity --------------------------
-@ObjectGeneratorCE(type = GeneratorType.Document, label = "Utility Payment", hasDetails = true, detailsEntityClass = DetailsActualPayment::class)
+@CeGenerator(type = GeneratorType.Document, label = "Utility Payment", hasDetails = true, detailsEntityClass = DetailsActualPayment::class)
 @Parcelize
 @Entity(tableName = "doc_actual_payment")
 @CeDocumentDescriber(
@@ -49,23 +45,23 @@ import kotlinx.parcelize.Parcelize
     accumulationRegistersIncome = [AccumRegMyPayments::class],
     documentType = DocTypes.utilityPayments
 )
-//@MigrationEntityCE(migrationVersion = 4)
+//@CeMigrationEntity(migrationVersion = 4)
 data class DocActualPaymentsEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
-    @FormFieldCE(label = "@@date_label",placeHolder="@@date_placeholder", type = FieldTypeHelper.DATE_TIME)
+    @CeField(label = "@@date_label",placeHolder="@@date_placeholder", type = FieldTypeHelper.DATE_TIME)
     override var date: Long,
-    @FormFieldCE(label = "@@number_label",placeHolder="@@number_placeholder", type = FieldTypeHelper.NUMBER)
+    @CeField(label = "@@number_label",placeHolder="@@number_placeholder", type = FieldTypeHelper.NUMBER)
     override var number: Long,
     override var isPosted: Boolean,
     override var isMarkedForDeletion: Boolean,
-    @FormFieldCE(related = true, type = FieldTypeHelper.SELECT,relatedEntityClass = RefAddressesEntity::class, label = "@@address_label", placeHolder = "@@address_placeholder")
+    @CeField(related = true, type = FieldTypeHelper.SELECT,relatedEntityClass = RefAddressesEntity::class, label = "@@address_label", placeHolder = "@@address_placeholder")
     var addressId:Long,
-    @FormFieldCE(label = "@@describe_label",placeHolder="@@describe_placeholder", type = FieldTypeHelper.TEXT)
+    @CeField(label = "@@describe_label",placeHolder="@@describe_placeholder", type = FieldTypeHelper.TEXT)
     //@ColumnInfo(defaultValue = "")
     var describe: String
 ) : CommonDocumentEntity(id, date, number, isPosted, isMarkedForDeletion), Parcelable{
     @Ignore
-    @FormFieldCE(
+    @CeField(
         label = "-",
         type = FieldTypeHelper.COMPOSABLE,
         customComposable = "UtilityPaymentHelper.FillDetails",
