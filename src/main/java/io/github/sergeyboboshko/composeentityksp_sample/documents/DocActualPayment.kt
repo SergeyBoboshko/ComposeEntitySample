@@ -37,6 +37,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 //Outstanding Invoice document
 //******************** Entity --------------------------
+
 @CeGenerator(type = GeneratorType.Document, label = "Utility Payment", hasDetails = true, detailsEntityClass = DetailsActualPayment::class)
 @Parcelize
 @Entity(tableName = "doc_actual_payment")

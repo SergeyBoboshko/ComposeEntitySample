@@ -32,6 +32,7 @@ import io.github.sergeyboboshko.composeentity_ksp.base.CeDatabaseVersion
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.initialLocales
+import io.github.sergeyboboshko.composeentityksp_sample.screens.AppSettings
 import io.github.sergeyboboshko.composeentityksp_sample.screens.MainPage
 import io.github.sergeyboboshko.composeentityksp_sample.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.composeentityksp_sample.ui.theme.ComposeEntityTheme
@@ -95,6 +96,8 @@ class MainActivity : ComponentActivity() {
                             composable(route="bluetoothtransfer") {
 
                             }
+
+                            composable (route="locate_settings"){ AppSettings() }
                         }
                     }
                 }
