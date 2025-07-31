@@ -8,7 +8,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons.Form
 import io.github.sergeyboboshko.composeentity.daemons._BaseDescribeFormElement
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.emptyCursor
@@ -27,7 +29,11 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 
 //створюємо єнтіті для зберігання налаштувань фильтра. Фільтр буде включати в себе адресу та розмір залишку
 @Entity(tableName = "rep_utilitypayments_free_settings")
-@CeGenerator(type = GeneratorType.ReportCursor,label="Free Grouping Balance/Overpayment", generationLevel = GenerationLevel.VIEW_MODEL, hasDetails = true, detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
+@CeGenerator(type = GeneratorType.ReportCursor,
+    label="Free Grouping Balance/Overpayment",
+    generationLevel = GenerationLevel.VIEW_MODEL,
+    hasDetails = true,
+    detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
 @CeReport(resultEntity = FreeReportUtilityPaymentsEntityResult::class,
     query = """SELECT tab.name as Address, ref_utilities.name  Utility, SUM (amount) as amount FROM 
         (SELECT
@@ -63,6 +69,8 @@ data class ReportUtilityPaymentsFreeEntity(
 public class ReportUtilityPaymentsFreeEntityUI() : RefUI() {
     override var viewModel: _BaseFormVM =
         io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE.reportUtilityPaymentsFreeEntityViewModel as _BaseFormVM
+    override var renderCaption: Boolean=false
+    override var composableTopForm: @Composable (BaseUI, _BaseFormVM, Form?, String) -> Unit = {_,_,_,_,->}
 
     @Composable
     override fun MainScreenList() {
@@ -75,7 +83,10 @@ public class ReportUtilityPaymentsFreeEntityUI() : RefUI() {
     override fun AddEditScreen(isNew: Boolean, id: Long) {
         initMe()
         val bs =  io.github.sergeyboboshko.composeentity.reportscursor.base.ReportCursorSettingsButtonsSet(viewModel as io.github.sergeyboboshko.composeentity.reportscursor.base._ReportViewModel)
-        io.github.sergeyboboshko.composeentity.daemons.RenderFormFieldsReference(viewModel = viewModel as io.github.sergeyboboshko.composeentity.daemons._SuperTopViewModel, isNew = isNew, caption1 = "Free Grouping Balance/Overpayment", bs, emptyEntity = ReportUtilityPaymentsFreeEntity(0L, "", "", 0L, 0.0))
+        io.github.sergeyboboshko.composeentity.daemons.RenderFormFieldsReference(viewModel = viewModel as io.github.sergeyboboshko.composeentity.daemons._SuperTopViewModel, isNew = isNew, caption1 = "Free Grouping Balance/Overpayment",
+            bs,
+            emptyEntity = ReportUtilityPaymentsFreeEntity(0L, "", "", 0L, 0.0)
+        , ui = this@ReportUtilityPaymentsFreeEntityUI)
 
     }
 

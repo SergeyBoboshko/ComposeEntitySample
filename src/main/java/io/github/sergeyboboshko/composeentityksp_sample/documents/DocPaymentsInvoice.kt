@@ -2,6 +2,12 @@ package io.github.sergeyboboshko.composeentityksp_sample.documents
 
 import android.os.Parcelable
 import android.widget.Toast
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -14,7 +20,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons.Form
 import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.mainCustomStack
@@ -36,9 +44,17 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 import kotlinx.coroutines.launch
 
 import kotlinx.parcelize.Parcelize
+
 //Outstanding Invoice document
 //******************** Entity --------------------------
-@CeGenerator(type = GeneratorType.Document, label = "Utility Bill", hasDetails = true, detailsEntityClass = DetailsUtilityCharge::class)
+@CeGenerator(
+    type = GeneratorType.Document,
+    label = "@@utility_bill",
+    hasDetails = true,
+    detailsEntityClass = DetailsUtilityCharge::class,
+    renderCaption = false,
+    composableTopForm = "UtilityChargeHelper.Caption"
+)
 @Parcelize
 @Entity(tableName = "doc_payments_invoice")
 @CeDocumentDescriber(
@@ -48,17 +64,35 @@ import kotlinx.parcelize.Parcelize
 )
 data class DocPaymentsinvoiceEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
-    @CeField(label = "@@date_label",placeHolder="@@date_placeholder", type = FieldTypeHelper.DATE_TIME)
+    @CeField(
+        label = "@@date_label",
+        placeHolder = "@@date_placeholder",
+        type = FieldTypeHelper.DATE_TIME
+    )
     override var date: Long,
-    @CeField(label = "@@number_label",placeHolder="@@number_placeholder", type = FieldTypeHelper.NUMBER)
+    @CeField(
+        label = "@@number_label",
+        placeHolder = "@@number_placeholder",
+        type = FieldTypeHelper.NUMBER
+    )
     override var number: Long,
     override var isPosted: Boolean,
     override var isMarkedForDeletion: Boolean,
-    @CeField(related = true, type = FieldTypeHelper.SELECT,relatedEntityClass = RefAddressesEntity::class, label = "@@address_label", placeHolder = "@@address_placeholder")
-    var addressId:Long,
-    @CeField(label = "@@describe_label",placeHolder="@@describe_placeholder", type = FieldTypeHelper.TEXT)
+    @CeField(
+        related = true,
+        type = FieldTypeHelper.SELECT,
+        relatedEntityClass = RefAddressesEntity::class,
+        label = "@@address_label",
+        placeHolder = "@@address_placeholder"
+    )
+    var addressId: Long,
+    @CeField(
+        label = "@@describe_label",
+        placeHolder = "@@describe_placeholder",
+        type = FieldTypeHelper.TEXT
+    )
     var describe: String?
-) : CommonDocumentEntity(id, date, number, isPosted, isMarkedForDeletion), Parcelable{
+) : CommonDocumentEntity(id, date, number, isPosted, isMarkedForDeletion), Parcelable {
     @Ignore
     @CeField(
         label = "-",
@@ -97,22 +131,23 @@ object UtilityChargeHelper {
 
                     AppGlobalCE.forSQLViewModel.viewModelScope.launch {
                         AppGlobalCE.forSQLViewModel.repository.execSQL(
-                             sqlDelete,
-                             arrayOf(currentDoc.link.id)
-                         )
+                            sqlDelete,
+                            arrayOf(currentDoc.link.id)
+                        )
                         AppGlobalCE.forSQLViewModel.repository.execSQL(
-                             sqlInsert,
+                            sqlInsert,
                             arrayOf(currentDoc.link.id, currentDoc.link.addressId)
-                         )
+                        )
                         //!Impotant! repost doc   !Impotant!   !Impotant!   !Impotant!
                         val accumUIs = (mainCustomStack.peek() as DocUI).regs
                         val infoUIs = (mainCustomStack.peek() as DocUI).infoRegs
                         AppGlobalCE.docPaymentsinvoiceEntityViewModel.onPost(
                             regs = accumUIs,
                             infoRegs = infoUIs,
-                            AppGlobalCE.detailsUtilityChargeViewModel as _DetailsViewModel)
+                            AppGlobalCE.detailsUtilityChargeViewModel as _DetailsViewModel
+                        )
                         //-----------------------------------------------------------------
-                        refresher=!refresher
+                        refresher = !refresher
                     }
 
                     showDialogue = false
@@ -127,6 +162,26 @@ object UtilityChargeHelper {
             TextButton(onClick = { showDialogue = true }) {
                 Text("Fill Utilities By Address")
             }
+        }
+    }
+
+    @Composable
+    fun Caption(ui: BaseUI, vm: _BaseFormVM, form: Form?, caption: String) {
+        Row {
+            when {
+                form?.formType == FormType.LIST -> {
+                    Icon(imageVector = Icons.Default.List, contentDescription = "Smile!")
+                }
+
+                form?.formType == FormType.ENTITY_VIEW -> {
+                    Icon(imageVector = Icons.Default.Info, contentDescription = "Smile!")
+                }
+
+                else -> {
+                    Icon(imageVector = Icons.Default.Favorite, contentDescription = "Smile!")
+                }
+            }
+            Text("   It's me: $caption")
         }
     }
 }
