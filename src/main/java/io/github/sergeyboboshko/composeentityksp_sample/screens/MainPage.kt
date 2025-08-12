@@ -51,7 +51,6 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeterZones
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMetersUI
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefTypesOfMetersUI
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntityUI
-import io.github.sergeyboboshko.composeentityksp_sample.reports.ReportUtilityPaymentsEntityUI
 import io.github.sergeyboboshko.composeentityksp_sample.reports.ReportUtilityPaymentsFreeEntityUI
 
 
@@ -131,12 +130,12 @@ fun MainPage(form: String) {
                     ui = RefAddressDetailsEntityUI() as BaseUI
                 )
                 HorizontalDivider()
-                ClassicButtons.NavigationButton(
-                    SelfNav.getMainScreen(),
-                    ReportUtilityPaymentsEntityUI() as BaseUI,
-                    "Some Test Report",
-                    "Some test report describe"
-                )
+//                ClassicButtons.NavigationButton(
+//                    SelfNav.getMainScreen(),
+//                    ReportUtilityPaymentsEntityUI() as BaseUI,
+//                    "Some Test Report",
+//                    "Some test report describe"
+//                )
                 ClassicButtons.NavigationButton(
                     SelfNav.getMainScreen(),
                     ReportUtilityPaymentsFreeEntityUI() as BaseUI,

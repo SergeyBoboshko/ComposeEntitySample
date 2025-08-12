@@ -1,5 +1,6 @@
 package io.github.sergeyboboshko.composeentityksp_sample
 
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -28,10 +29,13 @@ import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
 import io.github.sergeyboboshko.composeentity.daemons.SettingsScreen
 import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
+
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDatabaseVersion
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
+import io.github.sergeyboboshko.composeentity_ksp.registerGlobalEntities
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.initialLocales
+import io.github.sergeyboboshko.composeentityksp_sample.data.AppDatabase
 import io.github.sergeyboboshko.composeentityksp_sample.screens.AppSettings
 import io.github.sergeyboboshko.composeentityksp_sample.screens.MainPage
 import io.github.sergeyboboshko.composeentityksp_sample.screens.ScaffoldTopCommon
@@ -39,11 +43,16 @@ import io.github.sergeyboboshko.composeentityksp_sample.ui.theme.ComposeEntityTh
 import kotlin.getValue
 
 
-@CeDatabaseVersion(version = 4)
+@CeDatabaseVersion(version = 1)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
+    private lateinit var database: SQLiteDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val appDb = AppDatabase(this)
+        database = appDb.writableDatabase
+        GlobalContext.database = database
+        registerGlobalEntities()
         GlobalContext.mainViewModel=viewModel
         //GlobalContext.dropdownMenyStyle= DropdownMenuStyles.TILES
         enableEdgeToEdge()

@@ -1,35 +1,22 @@
 package io.github.sergeyboboshko.composeentityksp_sample.details
 
-import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
 
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
-import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeterZonesEntity
-import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
-import kotlinx.android.parcel.Parcelize
+
+
 
 @CeGenerator(type = GeneratorType.Details, label = "The Zones")
-@Parcelize
-@Entity(tableName = "ref_meter_details",
-    foreignKeys = [
-        ForeignKey(
-            entity = RefMeters::class,
-            parentColumns = ["id"],
-            childColumns = ["parentId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ])
-//@CeMigrationEntity(migrationVersion = 12)
+@CeEntity(tableName = "ref_meter_details")
+@CeCreateTable(tableName = "ref_meter_details")
 class DetailsMeterEntity(
-    @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var parentId: Long,
     @CeField(related = true, relatedEntityClass = RefMeterZonesEntity::class, extName = "zone", type = FieldTypeHelper.SELECT
@@ -37,6 +24,6 @@ class DetailsMeterEntity(
     var zoneId:Long,
     @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT, positionOnForm = 10)
     var describe:String
-): CommonDetailsEntity(id,parentId), Parcelable {
+): CommonDetailsEntity(id,parentId) {
 
 }

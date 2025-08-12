@@ -1,31 +1,33 @@
 package io.github.sergeyboboshko.composeentityksp_sample.references
-import android.os.Parcelable
+
 import android.widget.Toast
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
+
 import io.github.sergeyboboshko.composeentity.daemons.BaseEntityExt
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons.WebPageViewer
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
+import io.github.sergeyboboshko.composeentity_ksp.base.CeIgnore
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
-import kotlinx.android.parcel.Parcelize
+
 
 @CeGenerator(type = GeneratorType.Reference, beforeDelete = "beforeDeleteUtility")
-@Parcelize
-@Entity(tableName = "ref_utilities")
+@CeCreateTable("ref_utilities")
+@CeEntity(tableName = "ref_utilities")
 //@CeMigrationEntity(2)
 data class RefUtilitiesEntity (
-    @PrimaryKey(autoGenerate = true)
+
     override var id:Long,
     override var date: Long,
     @CeField(render=true, label = "@@name_label", placeHolder = "@@name_placeholder",type = FieldTypeHelper.TEXT, positionOnForm = 5)
@@ -36,10 +38,11 @@ data class RefUtilitiesEntity (
 
 ): CommonReferenceEntity(
     id,date,name, isMarkedForDeletion
-), Parcelable{
+){
 
-    @Ignore
+
     @CeField(customComposable = "MyComposableTest", type = FieldTypeHelper.COMPOSABLE, positionOnForm = 15, renderInList=false, renderInAddEdit = false)
+    @CeIgnore
     var customField:String = "{}"
 
     override fun toString(): String {

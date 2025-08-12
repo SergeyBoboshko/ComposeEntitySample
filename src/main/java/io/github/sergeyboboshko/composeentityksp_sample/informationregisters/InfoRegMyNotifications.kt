@@ -1,10 +1,11 @@
 package io.github.sergeyboboshko.composeentityksp_sample.informationregisters
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.TransactionType
 import io.github.sergeyboboshko.composeentity.informationregisters.base.InfRegEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
@@ -12,11 +13,11 @@ import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
 
-@Entity(tableName = "info_reg_my_notifications")
-//@CeMigrationEntity(migrationVersion = 5)
+@CeEntity(tableName = "info_reg_my_notifications")
+@CeCreateTable(tableName = "info_reg_my_notifications")
 @CeGenerator(type = GeneratorType.InformationRegister,label="Notifications")
 data class InfoRegMyNotifications(
-    @PrimaryKey(autoGenerate = true) override var id: Long,
+    override var id: Long,
     @CeField(render=true, label = "@@date_label",placeHolder="@@date_placeholder", type = FieldTypeHelper.DATE_TIME)
     override var period: Long,
     @CeField(render=true, label = "Registrator ID",placeHolder="Registrator ID", type = FieldTypeHelper.NUMBER)

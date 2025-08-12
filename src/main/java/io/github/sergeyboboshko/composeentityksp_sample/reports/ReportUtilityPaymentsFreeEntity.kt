@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
 import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.Form
@@ -16,6 +16,7 @@ import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.emptyCursor
 import io.github.sergeyboboshko.composeentity.references.base.RefUI
 import io.github.sergeyboboshko.composeentity.reports.base.ReportEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeReport
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
@@ -28,7 +29,8 @@ import io.github.sergeyboboshko.composeentityksp_sample.free.FreeReportUtilityPa
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 
 //створюємо єнтіті для зберігання налаштувань фильтра. Фільтр буде включати в себе адресу та розмір залишку
-@Entity(tableName = "rep_utilitypayments_free_settings")
+@CeEntity(tableName = "rep_utilitypayments_free_settings")
+@CeCreateTable("rep_utilitypayments_free_settings")
 @CeGenerator(type = GeneratorType.ReportCursor,
     label="Free Grouping Balance/Overpayment",
     generationLevel = GenerationLevel.VIEW_MODEL,
@@ -54,7 +56,7 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
         utilityId""")
 //@CeMigrationEntity (10)
 data class ReportUtilityPaymentsFreeEntity(
-    @PrimaryKey(autoGenerate = true) override var id: Long,
+    override var id: Long,
     override var name:String = "Default Settings",
     @CeField(type = FieldTypeHelper.TEXT,label="@@describe_label", placeHolder = "@@describe_placeholder")
     override var describe:String = "Report Outstanding Balance/Overpayment",

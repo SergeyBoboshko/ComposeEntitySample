@@ -1,11 +1,12 @@
 package io.github.sergeyboboshko.composeentityksp_sample.accumulationregisters
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
 import io.github.sergeyboboshko.composeentity.accumulationregisters.base.CommonAccumRegisterEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.TransactionType
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
@@ -15,11 +16,11 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeterZones
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
 
-@Entity(tableName = "accum_reg_my_payments")
-//@CeMigrationEntity(migrationVersion = 7)
+@CeEntity(tableName = "accum_reg_my_payments")
+@CeCreateTable(tableName = "accum_reg_my_payments")
 @CeGenerator(type = GeneratorType.AccumulationRegister, label = "Utility Payments", resources = "amount, meterR MAX")
 data class AccumRegMyPayments(
-    @PrimaryKey(autoGenerate = true) override var id: Long,
+    override var id: Long,
     @CeField(
         label = "@@date_label",
         placeHolder = "@@date_placeholder",
@@ -72,7 +73,7 @@ data class AccumRegMyPayments(
         positionOnForm = 1,
         useForOrder = true
     )
-    @ColumnInfo(defaultValue = "0")
+
     var meterId: Long,//NEW in 16
     @CeField(
         related = true,
@@ -84,7 +85,7 @@ data class AccumRegMyPayments(
         positionOnForm = 1,
         useForOrder = true
     )
-    @ColumnInfo(defaultValue = "0")
+
     var utilityId: Long,//NEW in 2
 
     @CeField(render = true, label = "Zone", placeHolder = "Zone", type = FieldTypeHelper.SELECT,
@@ -98,7 +99,7 @@ data class AccumRegMyPayments(
         type = FieldTypeHelper.DECIMAL
     )
     var amount: Double,
-    @ColumnInfo(defaultValue = "0")
+
     @CeField(
         label = "@@meter_reading_label",
         placeHolder = "@@meter_reading_placeholder",

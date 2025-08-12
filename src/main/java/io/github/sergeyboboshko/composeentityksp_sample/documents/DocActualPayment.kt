@@ -11,9 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
+
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
@@ -22,10 +22,12 @@ import io.github.sergeyboboshko.composeentity.details.base._DetailsViewModel
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
 import io.github.sergeyboboshko.composeentity.documents.base.DocUI
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
+import io.github.sergeyboboshko.composeentity_ksp.base.CeIgnore
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
 import io.github.sergeyboboshko.composeentityksp_sample.accumulationregisters.AccumRegMyPayments
 import io.github.sergeyboboshko.composeentityksp_sample.alerts.CleanAndRefillDialodue
@@ -34,13 +36,12 @@ import io.github.sergeyboboshko.composeentityksp_sample.details.DetailsActualPay
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesEntity
 import kotlinx.coroutines.launch
 
-import kotlinx.parcelize.Parcelize
-//Outstanding Invoice document
 //******************** Entity --------------------------
 
 @CeGenerator(type = GeneratorType.Document, label = "Utility Payment", hasDetails = true, detailsEntityClass = DetailsActualPayment::class)
-@Parcelize
-@Entity(tableName = "doc_actual_payment")
+
+@CeEntity(tableName = "doc_actual_payment")
+@CeCreateTable(tableName = "doc_actual_payment")
 @CeDocumentDescriber(
     //infoRegisters=[InfoRegMyNotifications::class],
     accumulationRegistersIncome = [AccumRegMyPayments::class],
@@ -48,7 +49,7 @@ import kotlinx.parcelize.Parcelize
 )
 //@CeMigrationEntity(migrationVersion = 4)
 data class DocActualPaymentsEntity(
-    @PrimaryKey(autoGenerate = true) override var id: Long,
+    override var id: Long,
     @CeField(label = "@@date_label",placeHolder="@@date_placeholder", type = FieldTypeHelper.DATE_TIME)
     override var date: Long,
     @CeField(label = "@@number_label",placeHolder="@@number_placeholder", type = FieldTypeHelper.NUMBER)
@@ -60,8 +61,8 @@ data class DocActualPaymentsEntity(
     @CeField(label = "@@describe_label",placeHolder="@@describe_placeholder", type = FieldTypeHelper.TEXT)
     //@ColumnInfo(defaultValue = "")
     var describe: String
-) : CommonDocumentEntity(id, date, number, isPosted, isMarkedForDeletion), Parcelable{
-    @Ignore
+) : CommonDocumentEntity(id, date, number, isPosted, isMarkedForDeletion){
+    @CeIgnore
     @CeField(
         label = "-",
         type = FieldTypeHelper.COMPOSABLE,

@@ -1,8 +1,8 @@
 package io.github.sergeyboboshko.composeentityksp_sample.free
 
 import androidx.compose.runtime.Composable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
 import io.github.sergeyboboshko.composeentity.daemons.BaseEntity
 import io.github.sergeyboboshko.composeentity.daemons.IconVector
 import io.github.sergeyboboshko.composeentity_ksp.base.CeFree

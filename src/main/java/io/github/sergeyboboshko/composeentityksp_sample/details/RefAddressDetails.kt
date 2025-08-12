@@ -2,19 +2,14 @@ package io.github.sergeyboboshko.composeentityksp_sample.details
 
 import android.os.Parcelable
 import android.widget.Toast
-import androidx.room.AutoMigration
-import androidx.room.ColumnInfo
-import androidx.room.DeleteColumn
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
-import androidx.room.RenameColumn
-import androidx.room.migration.AutoMigrationSpec
-import androidx.sqlite.db.SupportSQLiteDatabase
+
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeAutoMigration
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
@@ -24,25 +19,16 @@ import io.github.sergeyboboshko.composeentityksp_sample.references.RefAddressesE
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
 
-import kotlinx.android.parcel.Parcelize
+
 
 //@CeMigrationEntity(migrationVersion = 4)
 @CeGenerator(type = GeneratorType.Details)
-@Parcelize
-@Entity(
-    tableName = "ref_adress_details",
-    foreignKeys = [
-        ForeignKey(
-            entity = RefAddressesEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["parentId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
-)
-//@CeMigrationEntity(2)
+
+@CeEntity(
+    tableName = "ref_adress_details")
+@CeCreateTable(tableName = "ref_adress_details")
 data class RefAddressDetailsEntity(
-    @PrimaryKey(autoGenerate = true) override var id: Long,
+    override var id: Long,
     @CeField(
         related = true,
         type = FieldTypeHelper.TEXT,
@@ -60,7 +46,7 @@ data class RefAddressDetailsEntity(
         placeHolder = "@@utility_placeholder"
     )
     var utilityId: Long,
-    @ColumnInfo(defaultValue = "0")
+
     @CeField(
         related = true,
         type = FieldTypeHelper.SELECT,
@@ -69,7 +55,7 @@ data class RefAddressDetailsEntity(
         placeHolder = "@@meter_placeholder"
     )
     var meterId: Long
-) : CommonDetailsEntity(id, parentId = parentId), Parcelable
+) : CommonDetailsEntity(id, parentId = parentId)
 
 object RefAddressDetailsEntityHelper {
     fun onUtilityChange(
@@ -86,26 +72,5 @@ object RefAddressDetailsEntityHelper {
             .show()
     }
 }
-
-//@CeAutoMigration(from = 13, to = 14, useSpec = true)
-////@DeleteTable(deletedTableName = "Album")
-//// @RenameTable(fromTableName = "Singer", toTableName = "Artist")
-//@RenameColumn(tableName = "ref_adress_details", fromColumnName = "amount", toColumnName = "meterReading")
-//// @DeleteColumn(fromTableName = "Song", deletedColumnName = "genre")
-//class MyExampleAutoMigration : AutoMigrationSpec {
-//    @Override
-//    override fun onPostMigrate(db: SupportSQLiteDatabase) {
-//        //Invoked once auto migration is done
-//    }
-//}
-////@AutoMigration
-//@CeAutoMigration(from = 14, to = 15, useSpec = true)
-//@DeleteColumn(tableName = "ref_adress_details", columnName = "meterReading")
-//class To15Migration : AutoMigrationSpec {
-//    @Override
-//    override fun onPostMigrate(db: SupportSQLiteDatabase) {
-//        //Invoked once auto migration is done
-//    }
-//}
 
 

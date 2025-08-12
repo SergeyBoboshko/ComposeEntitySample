@@ -1,38 +1,21 @@
 package io.github.sergeyboboshko.composeentityksp_sample.details
 
-import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
-import io.github.sergeyboboshko.composeentityksp_sample.documents.DocActualPaymentsEntity
-import io.github.sergeyboboshko.composeentityksp_sample.documents.DocPaymentsinvoiceEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeterZonesEntity
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefMeters
 import io.github.sergeyboboshko.composeentityksp_sample.references.RefUtilitiesEntity
-import kotlinx.android.parcel.Parcelize
-import java.time.temporal.TemporalAmount
 
 @CeGenerator(type = GeneratorType.Details, label = "The Details Payment")
-@Parcelize
-//@CeMigrationEntity(migrationVersion = 4)
-@Entity(tableName = "details_actual_payment",
-    foreignKeys = [
-        ForeignKey(
-            entity = DocActualPaymentsEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["parentId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ])
+@CeEntity(tableName = "details_actual_payment")
+@CeCreateTable(tableName = "details_actual_payment")
 class DetailsActualPayment(
-    @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var parentId: Long,
     //@ColumnInfo(defaultValue = "0")
@@ -65,6 +48,6 @@ class DetailsActualPayment(
 //    @ColumnInfo(defaultValue = "0")
 //    @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",type= FieldTypeHelper.DECIMAL)
 //    var meterReading:Double
-): CommonDetailsEntity(id,parentId), Parcelable {
+): CommonDetailsEntity(id,parentId) {
 
 }

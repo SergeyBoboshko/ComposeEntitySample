@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    //id("kotlin-kapt")
+    //id("kotlin-parcelize")
     id("com.google.devtools.ksp") version "2.0.0-1.0.24"
 }
 
@@ -77,25 +77,25 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.8.3")
     //val room_version = "2.6.1"
-    val room_version = "2.7.0-rc03"
-
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+//    val room_version = "2.7.0-rc03"
+//
+//    implementation("androidx.room:room-runtime:$room_version")
+//    implementation("androidx.room:room-ktx:$room_version")
+//    kapt("androidx.room:room-compiler:$room_version")
 
     implementation ("androidx.webkit:webkit:1.4.0") //для інтеграції веб сторінок в компосе форми
     //runtimeOnly("com.google.accompanist:accompanist-webview:0.36.0")
 
 }
 
-// Необходимо включить кодогенерацию для kapt
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
-    arguments {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
-}
+//// Необходимо включить кодогенерацию для kapt
+//kapt {
+//    correctErrorTypes = true
+//    useBuildCache = true
+//    arguments {
+//        arg("room.schemaLocation", "$projectDir/schemas")
+//    }
+//}
 
 // Налаштування для KSP
 ksp {

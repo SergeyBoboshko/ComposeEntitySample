@@ -6,8 +6,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDirection
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
+
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.FieldValidator
 import io.github.sergeyboboshko.composeentity.daemons.SaveOperationTypes
@@ -15,21 +15,22 @@ import io.github.sergeyboboshko.composeentity.daemons.SimpleAlertDialog
 import io.github.sergeyboboshko.composeentity.daemons.SimpleDataPickerDialog
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentityksp_sample.MyApplication1
 import io.github.sergeyboboshko.composeentityksp_sample.details.RefAddressDetailsEntity
 
-import kotlinx.android.parcel.Parcelize
+
 
 //******************** Entity --------------------------
 @CeGenerator(type = GeneratorType.Reference, hasDetails = true, detailsEntityClass = RefAddressDetailsEntity::class
 , beforeSave = "RefAddressHelper.beforeSave")
-@Parcelize
-@Entity(tableName = "ref_adresses")
+@CeCreateTable(tableName = "ref_adresses")
+@CeEntity(tableName = "ref_adresses")
 data class RefAddressesEntity(
-    @PrimaryKey(autoGenerate = true) override var id: Long,
+    override var id: Long,
     @CeField(render=true, label = "@@date_label", placeHolder = "@@date_placeholder",type = FieldTypeHelper.DATE_TIME, renderInList = false)
     override var date: Long,
     @CeField(label = "@@name_label",placeHolder = "@@name_placeholder", type = FieldTypeHelper.TEXT
@@ -51,7 +52,7 @@ data class RefAddressesEntity(
     var houseBlock: String,
     @CeField(render=true, label = "@@apartmentNumber_label", type = FieldTypeHelper.NUMBER, placeHolder = "@@apartmentNumber_placeholder", renderInList = false)
     var apartmentNumber: Int
-) : CommonReferenceEntity(id, date, name, isMarkedForDeletion), Parcelable{
+) : CommonReferenceEntity(id, date, name, isMarkedForDeletion){
     override fun toString(): String {
         return "$id: $name"
     }
