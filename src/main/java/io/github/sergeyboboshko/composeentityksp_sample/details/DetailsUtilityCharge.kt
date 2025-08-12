@@ -118,11 +118,13 @@ object DetailsUtilityPaymentHelper{
 
     @Composable
     fun LastReading(vm: _BaseFormVM, formType: FormType? = null) {
+        val viewCounter = vm.viewCounter.value
         val currElement = vm.anyItem as? DetailsUtilityChargeExt
-        val parent = currElement?.parent
+        //val parent = currElement?.parent
         val lastReading = remember { mutableStateOf<Float?>(null) }
-
-        if (currElement == null || parent == null) {
+        val docVM: _BaseFormVM = AppGlobalCE.docPaymentsinvoiceEntityViewModel as _BaseFormVM
+        val parent = docVM.anyItem?.link as DocPaymentsinvoiceEntity
+        if (parent == null) {
             Text("No previous readings")
             return
         }
@@ -159,17 +161,17 @@ object DetailsUtilityPaymentHelper{
             if (meter.equals("")) meter = "0"
             //if (period.equals("")) period = "0"
 
-            LaunchedEffect(utility, meter) {
+            LaunchedEffect(viewCounter) {
                 val utilityId = utility?.toLongOrNull()
                 val meterId = meter?.toLongOrNull()
                 val period =  period//.toLongOrNull()
                 updateReading(utilityId, meterId,period)
             }
         } else {
-            LaunchedEffect(currElement.meter?.id) {
-                val utilityId = currElement.utility?.id
-                val meterId = currElement.meter?.id
-                val period = currElement.parent?.date
+            LaunchedEffect(viewCounter) {
+                val utilityId = currElement?.utility?.id
+                val meterId = currElement?.meter?.id
+                val period = currElement?.parent?.date
                 updateReading(utilityId, meterId,period)
             }
         }
