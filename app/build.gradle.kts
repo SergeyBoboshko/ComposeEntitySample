@@ -3,9 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
     id("com.google.devtools.ksp") version "2.0.0-1.0.24"
 }
 
@@ -62,22 +59,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    val ceVersion = "1.0.25"
+    val ceVersion = "2.0.0-beta.3"
     implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     implementation("io.github.sergeyboboshko:composeentity:$ceVersion")
 
     implementation("androidx.navigation:navigation-compose:2.8.3")
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-}
 
-// turns on kapt
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
 }
 
 // ksp set

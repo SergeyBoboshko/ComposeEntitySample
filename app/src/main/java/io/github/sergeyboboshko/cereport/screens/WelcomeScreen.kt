@@ -31,7 +31,7 @@ fun WelcomeScreen() {
     var visible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        delay(500)  // Додаємо затримку для ефекту появи
+        delay(500)  // Delay for fade-in effect
         visible = true
     }
 
@@ -65,6 +65,17 @@ fun WelcomeScreen() {
                 text = "Say goodbye to boilerplate code and hello to rapid development! " +
                         "Compose Entity lets you create database-driven apps with an intuitive UI " +
                         "in just a few lines of code. Simple, powerful, and elegant!",
+                style = TextStyle(fontSize = 16.sp, textAlign = TextAlign.Center, color = GlobalColors.currentPalette.text)
+            )
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+        AnimatedVisibility(visible = visible, enter = fadeIn()) {
+            BasicText(
+                text = "This example includes:\n" +
+                        "• Two directories (reference tables)\n" +
+                        "• One detailed part inside a directory\n" +
+                        "• Initial database population\n" +
+                        "• Database export and import using the framework",
                 style = TextStyle(fontSize = 16.sp, textAlign = TextAlign.Center, color = GlobalColors.currentPalette.text)
             )
         }

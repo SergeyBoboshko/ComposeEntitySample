@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Compose Entity Sample</string>
+    <string name="app_name">Compose Entity 2 Sample</string>
     <string name="date_label">Date</string>
     <string name="date_placeholder">Enter Date</string>
     <string name="name_label">Name</string>
@@ -24,4 +24,5 @@
     <string name="apartmentNumber_placeholder">Enter the Number of Apartment</string>
     <string name="amount_label">Amount</string>
     <string name="amount_placeholder">Enter the Amount</string>
+    <string name="persone_info">Persone Info</string>
 </resources>

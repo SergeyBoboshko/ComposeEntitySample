@@ -1,5 +1,6 @@
 package io.github.sergeyboboshko.cereport
 
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -17,8 +18,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import io.github.sergeyboboshko.cereport.daemons.InitialDataPrompt
+import io.github.sergeyboboshko.cereport.daemons.MyGlobalValues
+import io.github.sergeyboboshko.cereport.data.AppDatabase
 import io.github.sergeyboboshko.cereport.screens.MainPage
+import io.github.sergeyboboshko.cereport.screens.OtherNavigation
 import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
+import io.github.sergeyboboshko.cereport.screens.WelcomeScreen
+import io.github.sergeyboboshko.cereport.daemons.MyTestViewModel
 import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
@@ -27,26 +34,37 @@ import io.github.sergeyboboshko.composeentity.daemons.InitComposeEntityColors
 import io.github.sergeyboboshko.composeentity.daemons.MainViewModel
 import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
-import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
+import io.github.sergeyboboshko.composeentity_ksp.base.CeDatabaseVersion
+import io.github.sergeyboboshko.composeentity_ksp.registerGlobalEntities
 
 
-@DatabaseVersion(version = 1)
+@CeDatabaseVersion(version = 1)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
+    private lateinit var database: SQLiteDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //*** Define database
+        val appDb = AppDatabase(this)
+        database = appDb.writableDatabase
+        GlobalContext.database = database
+        registerGlobalEntities()
+        //***************************
         GlobalContext.mainViewModel=viewModel
-        //GlobalContext.dropdownMenyStyle= DropdownMenuStyles.TILES
+        //For example initial seeding data
+        MyGlobalValues.testViewModel = MyTestViewModel()
+
         enableEdgeToEdge()
         setContent {
             //****************************************************
-            //використати тільки в такій послідовності
-            InitComposableEntityVariables()//має сенс тільки до GlobalContext.init(this)
+            //use only in this queue
+            InitComposableEntityVariables()//works only before GlobalContext.init(this)
             GlobalContext.init(this)
-            InitComposeEntityColors()//має сенс тільки після GlobalContext.init(this)
+            InitComposeEntityColors()//has sense only after GlobalContext.init(this)
             //*****************************************************************
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController
+            InitialDataPrompt()
             //GlobalContext.context = this
             Log.d("S_TEST","GlobalContext.mainViewModel = ${GlobalContext.mainViewModel}")
             ComposeEntitySampleTheme(darkTheme = GlobalContext.darkMode) {
@@ -76,10 +94,8 @@ class MainActivity : ComponentActivity() {
                                     navController.currentBackStackEntry?.arguments?.getString("form")
                                 SelfNavigation(form ?: "")
                             }
+                            OtherNavigation()
 
-                            composable (route="settings"){
-                                //SettingsScreen(Generated.databaseVersion, io. github. sergeyboboshko. composeentity_ksp.db.DependenciesProvider as DatabaseFunctions)
-                            }
                         }
                     }
                 }
