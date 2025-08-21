@@ -34,6 +34,7 @@ import io.github.sergeyboboshko.composeentity_ksp.base.CeDatabaseVersion
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import io.github.sergeyboboshko.composeentity_ksp.registerGlobalEntities
+import io.github.sergeyboboshko.composeentityksp_sample.daemons.changeDefaultPalettes
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.initialLocales
 import io.github.sergeyboboshko.composeentityksp_sample.data.AppDatabase
 import io.github.sergeyboboshko.composeentityksp_sample.screens.AppSettings
@@ -62,6 +63,7 @@ class MainActivity : ComponentActivity() {
             //використати тільки в такій послідовності
             InitComposableEntityVariables()//має сенс тільки до GlobalContext.init(this)
             GlobalContext.init(this)
+            changeDefaultPalettes()
             InitComposeEntityColors()//має сенс тільки після GlobalContext.init(this)
             LaunchedEffect(Unit) {initialLocales() }
 

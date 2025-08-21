@@ -2,7 +2,11 @@ package io.github.sergeyboboshko.composeentityksp_sample.daemons
 
 import android.os.Looper
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewModelScope
+import io.github.sergeyboboshko.composeentity.daemons.ColorPalette
+import io.github.sergeyboboshko.composeentity.daemons.DefaultLightPalette
+import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.TransactionType
 import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
@@ -243,5 +247,6 @@ fun initialLocales() {
         "mydowntownaddress" to "मेरा शहर का पता",
         "mycountrysideaddress" to "मेरा ग्रामीण पता"
     ))
+
 }
 
