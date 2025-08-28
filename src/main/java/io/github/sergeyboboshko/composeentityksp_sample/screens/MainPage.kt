@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Shop
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.composable
@@ -180,6 +182,11 @@ fun MainPage(form: String) {
                     icon = Icons.Default.Settings,
                     displayMode = ButtonDisplayMode.IconOnly,
                     onClick = { GlobalContext.mainViewModel?.navController?.navigate(route = "locate_settings") }
+                )
+                StyledButton(
+                    icon = Icons.Default.Shop,
+                    displayMode = ButtonDisplayMode.IconOnly,
+                    onClick = { GlobalContext.mainViewModel?.navController?.navigate(route = "carousel_sample") }
                 )
                 PoweredByCEComposable()
             }

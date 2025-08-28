@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
@@ -37,6 +38,7 @@ import io.github.sergeyboboshko.composeentity_ksp.registerGlobalEntities
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.changeDefaultPalettes
 import io.github.sergeyboboshko.composeentityksp_sample.daemons.initialLocales
 import io.github.sergeyboboshko.composeentityksp_sample.data.AppDatabase
+import io.github.sergeyboboshko.composeentityksp_sample.samples.CarouselExample_MultiBrowse
 import io.github.sergeyboboshko.composeentityksp_sample.screens.AppSettings
 import io.github.sergeyboboshko.composeentityksp_sample.screens.MainPage
 import io.github.sergeyboboshko.composeentityksp_sample.screens.ScaffoldTopCommon
@@ -48,6 +50,7 @@ import kotlin.getValue
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     private lateinit var database: SQLiteDatabase
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val appDb = AppDatabase(this)
@@ -109,6 +112,9 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable (route="locate_settings"){ AppSettings() }
+                            composable(route = "carousel_sample") {
+
+                            CarouselExample_MultiBrowse() }
                         }
                     }
                 }
